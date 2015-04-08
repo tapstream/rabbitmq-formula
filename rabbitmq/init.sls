@@ -11,6 +11,27 @@ rabbitmq-server:
     - enable: True
     - watch:
       - pkg: rabbitmq-server
+      - file: rabbitmq-server
+  file.managed:
+    - name: /etc/rabbitmq/rabbitmq.config
+    - source: salt://rabbitmq/rabbitmq.config
+    - user: rabbitmq
+    - group: rabbitmq
+    - require:
+      - pkg: rabbitmq-server
+
+{% for file in ['cacert', 'key', 'cert'] %}
+rabbit-{{file}}:
+  file.managed:
+    - name: /etc/rabbitmq/ssl/{{file}}.pem
+    - contents_pillar: rabbitmq:ssl:{{file}}
+    - user: rabbitmq
+    - group: rabbitmq
+    - file_mode: 600
+    - makedirs: True
+    - watch_in:
+      - service: rabbitmq-server
+{% endfor %}
 
 rabbitmq_binary_tool_env:
   file.symlink:

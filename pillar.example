@@ -34,5 +34,16 @@ rabbitmq:
           - '.*'
           - '.*'
       - runas: root
-{#- vim:ft=sls
--#}
+  ssl:
+    key: |
+      -----BEGIN PRIVATE KEY-----
+      key
+      -----END PRIVATE KEY-----
+    cert: |
+      -----BEGIN CERTIFICATE-----
+      cert
+      -----END CERTIFICATE-----
+    cacert: |
+      -----BEGIN CERTIFICATE-----
+      cacert
+      -----END CERTIFICATE-----
