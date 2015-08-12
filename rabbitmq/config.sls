@@ -1,3 +1,6 @@
+include:
+  - rabbitmq
+
 {% for name, plugin in salt["pillar.get"]("rabbitmq:plugin", {}).iteritems() %}
 {{ name }}:
   rabbitmq_plugin:

@@ -1,7 +1,7 @@
 {% if grains['os_family'] == 'Debian' %}
 
 include:
-  - rabbitmq
+  - .config
 
 rabbitmq_repo:
   pkgrepo.managed:
