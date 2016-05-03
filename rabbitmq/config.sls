@@ -1,7 +1,4 @@
-include:
-  - rabbitmq
-
-{% for name, plugin in salt["pillar.get"]("rabbitmq:plugin", {}).iteritems() %}
+{% for name, plugin in salt["pillar.get"]("rabbitmq:plugin", {}).items() %}
 {{ name }}:
   rabbitmq_plugin:
     {% for value in plugin %}
@@ -15,7 +12,7 @@ include:
       - service: rabbitmq-server
 {% endfor %}
 
-{% for name, policy in salt["pillar.get"]("rabbitmq:policy", {}).iteritems() %}
+{% for name, policy in salt["pillar.get"]("rabbitmq:policy", {}).items() %}
 {{ name }}:
   rabbitmq_policy.present:
     {% for value in policy %}
@@ -27,7 +24,7 @@ include:
 
 # need to create users and then vhosts
 
-{% for name, user in salt["pillar.get"]("rabbitmq:user", {}).iteritems() %}
+{% for name, user in salt["pillar.get"]("rabbitmq:user", {}).items() %}
 rabbitmq_user_{{ name }}:
   rabbitmq_user.present:
     - name: {{ name }}
@@ -38,7 +35,7 @@ rabbitmq_user_{{ name }}:
       - service: rabbitmq-server
 {% endfor %}
 
-{% for name, policy in salt["pillar.get"]("rabbitmq:vhost", {}).iteritems() %}
+{% for name, policy in salt["pillar.get"]("rabbitmq:vhost", {}).items() %}
 rabbitmq_vhost_{{ name }}:
   rabbitmq_vhost.present:
     - name: {{ name }}

@@ -1,4 +1,5 @@
 rabbitmq:
+  version: "3.5.3-1"
   plugin:
     rabbitmq_management:
       - enabled
@@ -9,7 +10,7 @@ rabbitmq:
       - definition: '{"ha-mode": "all"}'
   vhost:
     virtual_host:
-      - user: rabbit_user
+      - owner: rabbit_user
       - conf: .*
       - write: .*
       - read: .*
@@ -34,16 +35,5 @@ rabbitmq:
           - '.*'
           - '.*'
       - runas: root
-  ssl:
-    key: |
-      -----BEGIN PRIVATE KEY-----
-      key
-      -----END PRIVATE KEY-----
-    cert: |
-      -----BEGIN CERTIFICATE-----
-      cert
-      -----END CERTIFICATE-----
-    cacert: |
-      -----BEGIN CERTIFICATE-----
-      cacert
-      -----END CERTIFICATE-----
+{#- vim:ft=sls
+-#}
