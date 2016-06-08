@@ -12,6 +12,13 @@
       - service: rabbitmq-server
 {% endfor %}
 
+rabbitmq_plugins_permissions:
+  file.managed:
+    - name: /etc/rabbitmq/enabled_plugins
+    - user: root
+    - group: root
+    - mode: 644
+
 {% for name, policy in salt["pillar.get"]("rabbitmq:policy", {}).items() %}
 {{ name }}:
   rabbitmq_policy.present:
